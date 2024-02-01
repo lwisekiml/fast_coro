@@ -8,7 +8,7 @@ import java.util.function.Predicate;
 
 @Getter
 @RequiredArgsConstructor
-public enum ErrorCode {
+public enum ErrorCode { // 우리 서비스에서 나오는 에러들을 다 한 곳에서 모아 정의
 
     OK(0, ErrorCategory.NORMAL, "Ok"),
 
