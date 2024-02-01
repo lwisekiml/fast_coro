@@ -6,16 +6,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class BaseController { // ErrorController를 해야 error 권한을 가져옴
+public class BaseController implements ErrorController { // ErrorController를 해야 error 권한을 가져옴
 
     @GetMapping("/")
-    public String root() throws Exception {
-        throw new Exception("테스트");
-//        return "index";
+    public String root() {
+        return "index";
     }
 
-//    @RequestMapping("/error")
-//    public String error() {
-//        return "error";
-//    }
+    @RequestMapping("/error")
+    public String error() {
+        return "error";
+    }
 }
