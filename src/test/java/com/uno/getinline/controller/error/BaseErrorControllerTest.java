@@ -21,12 +21,13 @@ class BaseErrorControllerTest {
 
     @DisplayName("[view][GET] 에러 페이지 - 페이지 없음")
     @Test
-    void givenWrongURI_whenRequestingRootPage_thenReturn404() throws Exception {
-        // given
+    void givenWrongURI_whenRequestingPage_thenReturns404ErrorPage() throws Exception {
+        // Given
 
-        // when & then
-        mvc.perform(get("/wrong-url"))
+        // When & Then
+        mvc.perform(get("/wrong-uri"))
                 .andExpect(status().isNotFound())
                 .andDo(print());
     }
+
 }
