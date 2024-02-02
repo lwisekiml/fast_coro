@@ -1,4 +1,4 @@
-package com.uno.getinline.Controller.api;
+package com.uno.getinline.controller.api;
 
 import org.springframework.web.bind.annotation.*;
 

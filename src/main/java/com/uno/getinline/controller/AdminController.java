@@ -1,4 +1,4 @@
-package com.uno.getinline.Controller;
+package com.uno.getinline.controller;
 
 import com.uno.getinline.constant.EventStatus;
 import com.uno.getinline.constant.PlaceType;

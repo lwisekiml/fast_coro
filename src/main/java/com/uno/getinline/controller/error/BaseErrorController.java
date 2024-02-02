@@ -1,4 +1,4 @@
-package com.uno.getinline.Controller.error;
+package com.uno.getinline.controller.error;
 
 import com.uno.getinline.constant.ErrorCode;
 import com.uno.getinline.dto.APIErrorResponse;
