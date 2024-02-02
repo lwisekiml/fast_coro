@@ -17,12 +17,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 class BaseControllerTest {
 
-    @Autowired
-    private MockMvc mvc;
+//    @Autowired
+//    private MockMvc mvc;
 
     @DisplayName("[view][GET] 기본 페이지 요청")
     @Test
-    void givenNothing_whenRequestingRootPage_thenReturnIndexPage() throws Exception {
+    void givenNothing_whenRequestingRootPage_thenReturnIndexPage(@Autowired MockMvc mvc) throws Exception {
         // given
 
         // when & then
