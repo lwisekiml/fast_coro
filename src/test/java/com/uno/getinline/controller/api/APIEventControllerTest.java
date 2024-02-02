@@ -3,17 +3,23 @@ package com.uno.getinline.controller.api;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uno.getinline.constant.ErrorCode;
 import com.uno.getinline.constant.EventStatus;
+import com.uno.getinline.dto.EventDTO;
 import com.uno.getinline.dto.EventResponse;
+import com.uno.getinline.service.EventService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -22,6 +28,8 @@ class APIEventControllerTest {
 
     private final MockMvc mvc;
     private final ObjectMapper mapper;
+
+    @MockBean private EventService eventService;
 
     public APIEventControllerTest(
             @Autowired MockMvc mvc,
@@ -35,6 +43,7 @@ class APIEventControllerTest {
     @Test
     void givenNothing_whenRequestingEvents_thenReturnsListOfEventsInStandardResponse() throws Exception {
         // Given
+        given(eventService.getEvents(any(), any(), any(), any(), any())).willReturn(List.of(createEventDTO()));
 
         // When & Then
         mvc.perform(get("/api/events"))
@@ -174,4 +183,18 @@ class APIEventControllerTest {
                 .andExpect(jsonPath("$.message").value(ErrorCode.OK.getMessage()));
     }
 
+    private EventDTO createEventDTO() {
+        return EventDTO.of(
+                1L,
+                "오후 운동",
+                EventStatus.OPENED,
+                LocalDateTime.of(2021, 1, 1, 13, 0, 0),
+                LocalDateTime.of(2021, 1, 1, 16, 0, 0),
+                0,
+                24,
+                "마스크 꼭 착용하세요",
+                LocalDateTime.now(),
+                LocalDateTime.now()
+        );
+    }
 }
