@@ -6,6 +6,7 @@ import com.uno.getinline.dto.EventRequest;
 import com.uno.getinline.dto.EventResponse;
 import com.uno.getinline.service.EventService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,8 +25,8 @@ public class APIEventController {
             Long placeId,
             String eventName,
             EventStatus eventStatus,
-            LocalDateTime eventStartDatetime,
-            LocalDateTime eventEndDatetime
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime eventStartDatetime,
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime eventEndDatetime
     ) {
         List<EventResponse> eventResponses = eventService
                 .getEvents(placeId, eventName, eventStatus, eventStartDatetime, eventEndDatetime)
