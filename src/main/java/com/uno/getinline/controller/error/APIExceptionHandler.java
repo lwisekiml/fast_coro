@@ -18,7 +18,7 @@ import javax.validation.ConstraintViolationException;
 public class APIExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler
-    public ResponseEntity<Object> general(ConstraintViolationException e, WebRequest request) {
+    public ResponseEntity<Object> validation(ConstraintViolationException e, WebRequest request) {
         ErrorCode errorCode = ErrorCode.VALIDATION_ERROR;
         HttpStatus status = HttpStatus.BAD_REQUEST;
 

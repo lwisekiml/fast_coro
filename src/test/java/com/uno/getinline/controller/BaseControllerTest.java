@@ -12,8 +12,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-//@WebMvcTest // 모든 컨트롤러를 읽는다.
-@WebMvcTest(BaseController.class) // 해당 컨트롤러를 읽는다.
+@WebMvcTest(BaseController.class)
 class BaseControllerTest {
 
     private final MockMvc mvc;
@@ -30,7 +29,6 @@ class BaseControllerTest {
         // When & Then
         mvc.perform(get("/"))
                 .andExpect(status().isOk())
-//                .andExpect(content().contentType(MediaType.TEXT_HTML)) // 아래 코드로 사용
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
                 .andExpect(content().string(containsString("This is default page.")))
                 .andExpect(view().name("index"))

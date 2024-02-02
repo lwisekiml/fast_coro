@@ -15,9 +15,10 @@ public record EventRequest(
         @NotNull LocalDateTime eventStartDatetime,
         @NotNull LocalDateTime eventEndDatetime,
         @NotNull @PositiveOrZero Integer currentNumberOfPeople,
-        @NotNull Integer capacity,
+        @NotNull @Positive Integer capacity,
         String memo
 ) {
+
     public static EventRequest of(
             Long placeId,
             String eventName,
@@ -39,4 +40,20 @@ public record EventRequest(
                 memo
         );
     }
+
+    public EventDTO toDTO() {
+        return EventDTO.of(
+                this.placeId(),
+                this.eventName(),
+                this.eventStatus(),
+                this.eventStartDatetime(),
+                this.eventEndDatetime(),
+                this.currentNumberOfPeople(),
+                this.capacity(),
+                this.memo(),
+                null,
+                null
+        );
+    }
+
 }
