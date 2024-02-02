@@ -26,5 +26,4 @@ public record PlaceDTO(
     ) {
         return new PlaceDTO(placeType, placeName, address, phoneNumber, capacity, memo, createdAt, modifiedAt);
     }
-
 }

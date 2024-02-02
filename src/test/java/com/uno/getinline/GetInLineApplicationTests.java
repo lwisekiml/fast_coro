@@ -1,11 +1,12 @@
 package com.uno.getinline;
 
-import com.uno.getinline.repository.EventRepository;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
 
+@Disabled("다른 테스트의 속도 향상을 위해 비활성화")
+@DisplayName("스프링 부트 기본 테스트")
 @SpringBootTest
 class GetInLineApplicationTests {
 

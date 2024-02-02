@@ -33,24 +33,45 @@ public class EventService {
                     eventStartDatetime,
                     eventEndDatetime
             );
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             throw new GeneralException(ErrorCode.DATA_ACCESS_ERROR, e);
         }
     }
 
     public Optional<EventDTO> getEvent(Long eventId) {
-        return eventRepository.findEvent(eventId);
+        try {
+            return eventRepository.findEvent(eventId);
+        }
+        catch (Exception e) {
+            throw new GeneralException(ErrorCode.DATA_ACCESS_ERROR, e);
+        }
     }
 
     public boolean createEvent(EventDTO eventDTO) {
-        return eventRepository.insertEvent(eventDTO);
+        try {
+            return eventRepository.insertEvent(eventDTO);
+        }
+        catch (Exception e) {
+            throw new GeneralException(ErrorCode.DATA_ACCESS_ERROR, e);
+        }
     }
 
     public boolean modifyEvent(Long eventId, EventDTO dto) {
-        return eventRepository.updateEvent(eventId, dto);
+        try {
+            return eventRepository.updateEvent(eventId, dto);
+        }
+        catch (Exception e) {
+            throw new GeneralException(ErrorCode.DATA_ACCESS_ERROR, e);
+        }
     }
 
     public boolean removeEvent(Long eventId) {
-        return eventRepository.deleteEvent(eventId);
+        try {
+            return eventRepository.deleteEvent(eventId);
+        }
+        catch (Exception e) {
+            throw new GeneralException(ErrorCode.DATA_ACCESS_ERROR, e);
+        }
     }
 }
