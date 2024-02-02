@@ -42,10 +42,9 @@ class APIEventControllerTest {
         this.mapper = mapper;
     }
 
-    // 이거 하나만 통과
     @DisplayName("[API][GET] 이벤트 리스트 조회 + 검색 파라미터")
     @Test
-    void givenNothing_whenRequestingEvents_thenReturnsListOfEventsInStandardResponse() throws Exception {
+    void givenParam_whenRequestingEvents_thenReturnsListOfEventsInStandardResponse() throws Exception {
         // Given
         given(eventService.getEvents(any(), any(), any(), any(), any())).willReturn(List.of(createEventDTO()));
 
@@ -77,6 +76,29 @@ class APIEventControllerTest {
                 .andExpect(jsonPath("$.errorCode").value(ErrorCode.OK.getCode()))
                 .andExpect(jsonPath("$.message").value(ErrorCode.OK.getMessage()));
         then(eventService).should().getEvents(any(), any(), any(), any(), any());
+    }
+
+    // 200 나온다.
+    @DisplayName("[API][GET] 이벤트 리스트 조회 + 잘못된 검색 파라미터")
+    @Test
+    void givenWrongParam_whenRequestingEvents_thenReturnsListOfEventsInStandardResponse() throws Exception {
+        // Given
+
+        // When & Then
+        mvc.perform(
+                        get("/api/events")
+                                .queryParam("placeId", "0")
+                                .queryParam("eventName", "오")
+                                .queryParam("eventStatus", EventStatus.OPENED.name())
+                                .queryParam("eventStartDatetime", "2021-01-01T00:00:00")
+                                .queryParam("eventEndDatetime", "2021-01-02T00:00:00")
+                )
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.success").value(true))
+                .andExpect(jsonPath("$.errorCode").value(ErrorCode.OK.getCode()))
+                .andExpect(jsonPath("$.message").value(ErrorCode.OK.getMessage()));
+        then(eventService).shouldHaveNoInteractions();
     }
 
     @DisplayName("[API][POST] 이벤트 생성")
