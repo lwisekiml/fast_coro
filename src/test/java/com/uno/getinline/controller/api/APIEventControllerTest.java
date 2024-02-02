@@ -6,6 +6,7 @@ import com.uno.getinline.constant.EventStatus;
 import com.uno.getinline.dto.EventDTO;
 import com.uno.getinline.dto.EventResponse;
 import com.uno.getinline.service.EventService;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
@@ -78,8 +80,7 @@ class APIEventControllerTest {
         then(eventService).should().getEvents(any(), any(), any(), any(), any());
     }
 
-    // 200 나온다.
-    @DisplayName("[API][GET] 이벤트 리스트 조회 + 잘못된 검색 파라미터")
+    @DisplayName("[API][GET] 이벤트 리스트 조회 + 잘못된 검색 파라미터") // 제대로 실행된다.
     @Test
     void givenWrongParam_whenRequestingEvents_thenReturnsListOfEventsInStandardResponse() throws Exception {
         // Given
@@ -95,9 +96,9 @@ class APIEventControllerTest {
                 )
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.success").value(true))
-                .andExpect(jsonPath("$.errorCode").value(ErrorCode.OK.getCode()))
-                .andExpect(jsonPath("$.message").value(ErrorCode.OK.getMessage()));
+                .andExpect(jsonPath("$.success").value(false))
+                .andExpect(jsonPath("$.errorCode").value(ErrorCode.VALIDATION_ERROR.getCode()))
+                .andExpect(jsonPath("$.message").value(containsString(ErrorCode.VALIDATION_ERROR.getMessage())));
         then(eventService).shouldHaveNoInteractions();
     }
 
